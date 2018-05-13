@@ -9,6 +9,12 @@ def index(request):
 
     return render(request, template_name='index.html')
 
+def assignments(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    return render(request, template_name='assignments.html')
+
 def login(request):
     return render(request, 'login.html')
 
