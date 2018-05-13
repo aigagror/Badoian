@@ -5,10 +5,12 @@ from django.contrib.auth import logout as auth_logout
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
-        url = Template("{% url 'social:begin' 'google-oauth2' %}")
-        return redirect(str(url.render(Context({}))))
+        return redirect('login')
 
     return render(request, template_name='index.html')
+
+def login(request):
+    return render(request, 'login.html')
 
 def logout(request):
     auth_logout(request)
