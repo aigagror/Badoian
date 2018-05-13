@@ -20,3 +20,9 @@ class Submission(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
     submission = models.CharField(max_length=256)
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=32)
+
+    members = models.ManyToManyField(User, related_name='Team')
