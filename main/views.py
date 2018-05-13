@@ -16,6 +16,10 @@ def assignments(request):
 def statistics(request):
     return render(request, template_name='statistics.html')
 
+@login_required
+def rounds(request):
+    return render(request, template_name='rounds.html')
+
 def login(request):
     return render(request, 'login.html')
 
