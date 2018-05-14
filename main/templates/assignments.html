@@ -32,15 +32,28 @@
                                     Due: <span class="text-secondary">{{ assignment.due_time }}</span>
                                 </small>
                             </div>
-                            <small>Not started yet</small>
+                            <small>
+                                {% if assignment.submission %}
+                                    Started <span class="text-secondary">{{ assignment.submission.started }}</span>
+                                {% else %}
+                                    Not started yet
+                                {% endif %}
+                            </small>
                         </div>
                         <div class="form-inline mt-4">
                             <div class="form-group mr-auto">
-                                <form action="{% url 'create_submission' %}" method="post">
-                                    {% csrf_token %}
-                                    <input hidden value="{{ assignment.id }}" name="assignment_id">
-                                    <button type="submit" class="btn btn-success mr-auto">Start</button>
-                                </form>
+                                {% if assignment.submission %}
+                                    <form action="{% url 'submission' assignment.submission.id %}" method="get">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success mr-auto">Resume</button>
+                                    </form>
+                                {% else %}
+                                    <form action="{% url 'create_submission' %}" method="post">
+                                        {% csrf_token %}
+                                        <input hidden value="{{ assignment.id }}" name="assignment_id">
+                                        <button type="submit" class="btn btn-success mr-auto">Start</button>
+                                    </form>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <form action="{% url 'delete_assignment' %}" method="post">
