@@ -12,6 +12,7 @@ class Round(models.Model):
     name = models.CharField(max_length=128)
     problems = models.ManyToManyField(Problem, related_name='rounds')
     image = models.ImageField(null=True, blank=True)
+    pdf = models.FileField(null=True, blank=True)
 
 
 class Assignment(models.Model):
