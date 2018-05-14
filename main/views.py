@@ -16,8 +16,14 @@ def index(request):
 
 @login_required
 def assignments(request):
+    user = request.user
+
     rounds = Round.objects.all()
     assignments = Assignment.objects.all()
+
+    for assignment in assignments:
+        submission = Submission.objects.filter(user=user, assignment=assignment).first()
+        assignment.submission = submission
 
     context = {
         'assignments': assignments,

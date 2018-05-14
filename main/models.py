@@ -22,6 +22,7 @@ class Assignment(models.Model):
 class Submission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+
     submitted = models.DateTimeField(null=True, blank=True)
     started = models.DateTimeField(default=timezone.now)
     answers = models.TextField(default="") # Each answer is in its own line
