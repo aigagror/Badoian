@@ -8,14 +8,16 @@
 <body>
 {% include 'nav_bar.html' %}
 
-<div class="container-fluid my-4">
-    <div class="row text-light">
+<div class="container-fluid my-4 text-secondary">
+    <div class="row text-light mb-4">
         <div class="col-4">
             <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
                 <span class="fab fa-google"></span> Sign in with Google
             </a>
         </div>
     </div>
+    You must be logged in to use this site
+
 </div>
 
 </body>
