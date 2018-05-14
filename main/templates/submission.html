@@ -11,7 +11,20 @@
 <div class="container">
     <h1>Submission</h1>
 
-
+    <form>
+        {% for problem in submission.assignment.round.problems.all %}
+            <div class="form-group">
+                <h3>Question {{ forloop.counter }}</h3>
+                <h5>{{ problem.question }}</h5>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Answer</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="SymPy Format">
+                </div>
+            </div>
+        {% endfor %}
+    </form>
 </div>
 
 </body>
