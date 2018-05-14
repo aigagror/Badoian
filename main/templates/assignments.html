@@ -27,34 +27,18 @@
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ assignment.round.name }}</h5>
-                            <small>{{ assignment.due_time }}</small>
+                            <small>
+                                {{ assignment.due_time }}
+                                <br>
+                                <form action="{% url 'delete_assignment' %}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden value="{{ assignment.id }}" name="assignment_id">
+                                    <button type="submit" class="btn btn-danger float-right mt-4">Delete</button>
+                                </form>
+                            </small>
                         </div>
                     </a>
                 {% endfor %}
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Assignment</h5>
-                        <small>Due Date</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small>Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Assignment</h5>
-                        <small class="text-muted">Due Date</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Assignment</h5>
-                        <small class="text-muted">Due Date</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
             </div>
         </div>
     </div>

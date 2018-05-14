@@ -40,6 +40,16 @@ def create_assignment(request):
     return redirect('assignments')
 
 @login_required
+def delete_assignment(request):
+    assignment_id = request.POST.get('assignment_id')
+
+    assignment = Assignment.objects.get(id=assignment_id)
+
+    assignment.delete()
+
+    return redirect('assignments')
+
+@login_required
 def statistics(request):
     return render(request, template_name='statistics.html')
 
