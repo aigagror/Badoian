@@ -7,7 +7,11 @@ from .models import *
 # Create your views here.
 @login_required
 def index(request):
-    return render(request, template_name='index.html')
+    members = User.objects.all()
+    context = {
+        'members': members,
+    }
+    return render(request, template_name='index.html', context=context)
 
 @login_required
 def assignments(request):

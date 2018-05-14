@@ -16,6 +16,12 @@
         </div>
     </div>
 
+    <h3>Members</h3>
+    <ul class="list-group list-group-flush">
+        {% for member in members %}
+        <li class="list-group-item">{{ member.first_name }} {{ members.last_name }}</li>
+        {% endfor %}
+    </ul>
 
 </div>
 </body>
