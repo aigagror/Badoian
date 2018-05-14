@@ -11,6 +11,15 @@
 <div class="container">
     <h1>Rounds</h1>
 
+    {% for round in rounds %}
+        <h4>{{ round.name }}</h4>
+        <form method="post" action="{% url 'delete_round' %}">
+        {% csrf_token %}
+        <input hidden name="round_id" value="{{ round.id }}">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    {% endfor %}
+
     <button class="btn btn-primary" data-toggle="modal" data-target="#roundModal">Create New Round</button>
 
     <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="roundModalLabel" aria-hidden="true">

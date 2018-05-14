@@ -19,7 +19,11 @@ def statistics(request):
 
 @login_required
 def rounds(request):
-    return render(request, template_name='rounds.html')
+    rounds = Round.objects.all()
+    context = {
+        'rounds': rounds,
+    }
+    return render(request, template_name='rounds.html', context=context)
 
 @login_required
 def create_rounds(request):
@@ -53,6 +57,14 @@ def create_rounds(request):
 
 
         return redirect('rounds')
+
+@login_required
+def delete_round(request):
+    round_id = request.POST.get('round_id')
+    round = Round.objects.get(id=round_id)
+    round.delete()
+
+    return redirect('rounds')
 
 def login(request):
     return render(request, 'login.html')
