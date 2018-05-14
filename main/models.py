@@ -9,6 +9,7 @@ class Problem(models.Model):
     solution = models.CharField(max_length=256)
 
 class Round(models.Model):
+    name = models.CharField(max_length=128)
     problems = models.ManyToManyField(Problem, related_name='rounds')
     image = models.ImageField(null=True, blank=True)
 
