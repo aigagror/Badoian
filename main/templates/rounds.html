@@ -10,6 +10,91 @@
 
 <div class="container">
     <h1>Rounds</h1>
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#roundModal">Create New Round</button>
+
+    <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="roundModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roundModalLabel">New Round</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Name</span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="Round Name">
+                        </div>
+                    </div>
+
+                    <h4>Problem 1</h4>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Question</span>
+                            </div>
+                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="SymPy Format">
+                        </div>
+                    </div>
+
+                    <h4>Problem 2</h4>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Question</span>
+                            </div>
+                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="SymPy Format">
+                        </div>
+                    </div>
+
+                    <h4>Problem 3</h4>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Question</span>
+                            </div>
+                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="SymPy Format">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success ml-auto" data-dismiss="modal">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
