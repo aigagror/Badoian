@@ -3,6 +3,7 @@ from django.template import Context, Template
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import *
 from .models import *
+from django.utils import dateparse
 
 # Create your views here.
 @login_required
@@ -24,6 +25,19 @@ def assignments(request):
     }
 
     return render(request, template_name='assignments.html', context=context)
+
+@login_required
+def create_assignment(request):
+    due_date = request.POST.get('due_date')
+    due_date = dateparse.parse_date(due_date)
+    round_id = request.POST.get('round_id')
+
+    round = Round.objects.get(id=round_id)
+
+    new_assignment = Assignment(round=round, due_time=due_date)
+    new_assignment.save()
+
+    return redirect('assignments')
 
 @login_required
 def statistics(request):
