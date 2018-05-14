@@ -22,76 +22,79 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <form action="{% url 'create_rounds' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Name</span>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Name</span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="Round Name" name="round_name">
                             </div>
-                            <input class="form-control" type="text" placeholder="Round Name">
                         </div>
-                    </div>
 
-                    <h4>Problem 1</h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Question</span>
+                        <h4>Problem 1</h4>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Question</span>
+                                </div>
+                                <textarea class="form-control" placeholder="LaTeX Format" name="q_1"></textarea>
                             </div>
-                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Answer</span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="SymPy Format" name="a_1">
                             </div>
-                            <input class="form-control" type="text" placeholder="SymPy Format">
                         </div>
-                    </div>
 
-                    <h4>Problem 2</h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Question</span>
+                        <h4>Problem 2</h4>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Question</span>
+                                </div>
+                                <textarea class="form-control" placeholder="LaTeX Format" name="q_2"></textarea>
                             </div>
-                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Answer</span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="SymPy Format" name="a_2">
                             </div>
-                            <input class="form-control" type="text" placeholder="SymPy Format">
                         </div>
-                    </div>
 
-                    <h4>Problem 3</h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Question</span>
+                        <h4>Problem 3</h4>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Question</span>
+                                </div>
+                                <textarea class="form-control" placeholder="LaTeX Format" name="q_3"></textarea>
                             </div>
-                            <textarea class="form-control" placeholder="LaTeX Format"></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Answer</span>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Answer</span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="SymPy Format" name="a_3">
                             </div>
-                            <input class="form-control" type="text" placeholder="SymPy Format">
                         </div>
-                    </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success ml-auto" data-dismiss="modal">Create</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success ml-auto">Create</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -45,12 +45,14 @@ def create_rounds(request):
 
         # Create the round
         new_round = Round(name=round_name)
+        new_round.save()
         new_round.problems.add(p_1)
         new_round.problems.add(p_2)
         new_round.problems.add(p_3)
         new_round.save()
 
-        return HttpResponseRedirect(request.path)
+
+        return redirect('rounds')
 
 def login(request):
     return render(request, 'login.html')

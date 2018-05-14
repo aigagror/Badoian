@@ -9,4 +9,6 @@ urlpatterns = [
     path('rounds/', views.rounds, name='rounds'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
+
+    path('create_rounds/', views.create_rounds, name='create_rounds')
 ]
