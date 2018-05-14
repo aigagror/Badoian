@@ -12,12 +12,36 @@
     <h1>Rounds</h1>
 
     {% for round in rounds %}
-        <h4>{{ round.name }}</h4>
-        <form method="post" action="{% url 'delete_round' %}">
-        {% csrf_token %}
-        <input hidden name="round_id" value="{{ round.id }}">
-        <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        <div class="row">
+            <div class="col">
+                <h3>{{ round.name }}</h3>
+                <div class="text-secondary">
+                    {% for problem in round.problems.all %}
+                        {{ problem.question }}
+                        {{ problem.correct_answer }}
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <form method="post" action="{% url 'delete_round' %}" class="float-right">
+                        {% csrf_token %}
+                        <input hidden name="round_id" value="{{ round.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <br>
+                <div class="form-group">
+                    <form method="post" action="" class="float-right">
+                        {% csrf_token %}
+                        <input hidden name="round_id" value="{{ round.id }}">
+                        <button type="submit" class="btn btn-outline-secondary">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     {% endfor %}
 
     <button class="btn btn-primary" data-toggle="modal" data-target="#roundModal">Create New Round</button>
@@ -26,7 +50,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="roundModalLabel">New Round</h5>
+                <h5 class="modal-title" id="roundModalLabel">New Round</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
