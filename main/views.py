@@ -11,7 +11,15 @@ def index(request):
 
 @login_required
 def assignments(request):
-    return render(request, template_name='assignments.html')
+    rounds = Round.objects.all()
+    assignments = Assignment.objects.all()
+
+    context = {
+        'assignments': assignments,
+        'rounds': rounds,
+    }
+
+    return render(request, template_name='assignments.html', context=context)
 
 @login_required
 def statistics(request):

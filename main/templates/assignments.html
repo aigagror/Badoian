@@ -16,6 +16,14 @@
     <div class="row">
         <div class="col">
             <div class="list-group">
+                {% for assignment in assignments %}
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ assignment.round.name }}</h5>
+                            <small>{{ assignment.due_time }}</small>
+                        </div>
+                    </a>
+                {% endfor %}
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Assignment</h5>
@@ -69,6 +77,9 @@
                     </div>
                 </div>
                 <div class="list-group">
+                    {% for round in rounds %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ round.name }}</a>
+                    {% endfor %}
                     <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
                     <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
                     <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
