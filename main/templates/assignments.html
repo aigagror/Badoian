@@ -25,19 +25,23 @@
             <div class="list-group">
                 {% for assignment in assignments %}
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ assignment.round.name }}</h5>
-                            <small>
-                                {{ assignment.due_time }}
-                                <br>
-                                <form action="{% url 'delete_assignment' %}" method="post">
-                                    {% csrf_token %}
-                                    <input hidden value="{{ assignment.id }}" name="assignment_id">
-                                    <button type="submit" class="btn btn-danger float-right mt-4">Delete</button>
-                                </form>
-                            </small>
+                        <div>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ assignment.round.name }}</h5>
+                                <small>
+                                    Due: <span class="text-secondary">{{ assignment.due_time }}</span>
+                                </small>
+                            </div>
+                            <small>Not started yet</small>
                         </div>
+                        <form action="{% url 'delete_assignment' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden value="{{ assignment.id }}" name="assignment_id">
+                            <button type="submit" class="btn btn-danger float-right mt-4">Delete</button>
+                        </form>
                     </a>
+
+
                 {% endfor %}
             </div>
         </div>
@@ -59,7 +63,7 @@
                 </button>
             </div>
             <form action="{% url 'create_assignment' %}" method="post">
-            {% csrf_token %}
+                {% csrf_token %}
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="input-group">
