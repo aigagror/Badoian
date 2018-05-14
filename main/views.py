@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.template import Context, Template
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import *
@@ -20,6 +20,37 @@ def statistics(request):
 @login_required
 def rounds(request):
     return render(request, template_name='rounds.html')
+
+@login_required
+def create_rounds(request):
+    if request.method == 'POST':
+        round_name = request.POST.get('round_name')
+        q_1 = request.POST.get('q_1')
+        a_1 = request.POST.get('a_1')
+
+        q_2 = request.POST.get('q_2')
+        a_2 = request.POST.get('a_2')
+
+        q_3 = request.POST.get('q_3')
+        a_3 = request.POST.get('a_3')
+
+        # Create the problems
+        p_1 = Problem(question=q_1, correct_answer=a_1)
+        p_2 = Problem(question=q_2, correct_answer=a_2)
+        p_3 = Problem(question=q_3, correct_answer=a_3)
+
+        p_1.save()
+        p_2.save()
+        p_3.save()
+
+        # Create the round
+        new_round = Round(name=round_name)
+        new_round.problems.add(p_1)
+        new_round.problems.add(p_2)
+        new_round.problems.add(p_3)
+        new_round.save()
+
+        return HttpResponseRedirect(request.path)
 
 def login(request):
     return render(request, 'login.html')

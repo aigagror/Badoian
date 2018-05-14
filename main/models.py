@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Problem(models.Model):
     question = models.TextField()
-    solution = models.CharField(max_length=256)
+    correct_answer = models.CharField(max_length=256)
 
 class Round(models.Model):
     name = models.CharField(max_length=128)
