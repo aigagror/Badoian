@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.template import Context, Template
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import *
@@ -48,6 +48,44 @@ def delete_assignment(request):
     assignment.delete()
 
     return redirect('assignments')
+
+@login_required
+def create_submission(request):
+    assignment_id = request.POST.get('assignment_id')
+
+    assignment = Assignment.objects.get(id=assignment_id)
+
+    user = request.user
+
+    new_submission = Submission(assignment=assignment, user=user)
+    new_submission.save()
+
+    return redirect('submission', submission_id=new_submission.id)
+
+@login_required
+def delete_submission(request):
+    submission_id = request.POST.get('submission_id')
+    submission = Submission.objects.get(id=submission_id)
+
+    submission.delete()
+
+    return redirect('assignments')
+
+
+@login_required
+def submission(request, submission_id):
+    my_submission = Submission.objects.get(id=submission_id)
+
+    user = request.user
+
+    if my_submission.user != user:
+        return HttpResponse('This submission is not yours')
+
+    context = {
+        'submission': my_submission,
+    }
+
+    return render(request, 'submission.html', context=context)
 
 @login_required
 def statistics(request):
