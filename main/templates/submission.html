@@ -11,6 +11,10 @@
 <div class="container">
     <h1>Submission</h1>
 
+    {% if submission.assignment.round.file %}
+        <a href="{% url 'round_file' submission.assignment.round.id %}" target="_blank" class="badge badge-primary mb-3">File</a>
+    {% endif %}
+
     <form>
         {% for problem in submission.assignment.round.problems.all %}
             <div class="form-group">
@@ -24,6 +28,8 @@
                 </div>
             </div>
         {% endfor %}
+
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
 
