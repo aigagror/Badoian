@@ -26,4 +26,5 @@ class Submission(models.Model):
     submitted = models.DateTimeField(null=True, blank=True)
     started = models.DateTimeField(default=timezone.now)
     answers = models.TextField(default="") # Each answer is in its own line
+    points = models.TextField(default="") # Each point corresponds to each answer
     submission_image = models.ImageField(null=True, blank=True)
