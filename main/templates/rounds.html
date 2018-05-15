@@ -14,11 +14,7 @@
     <ul class="list-group list-group-flush my-4">
         {% for round in rounds %}
             <li class="list-group-item">
-                <h5>{{ round.name }}
-                    {% if round.file %}
-                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-pill badge-success">File</a>
-                    {% endif %}
-                </h5>
+                <h5>{{ round.name }}</h5>
                 {% if not round.file %}
                     <div class="text-secondary">
                         {% for problem in round.problems.all %}
@@ -36,6 +32,9 @@
                             <button type="submit" class="btn btn-outline-secondary">Edit</button>
                         </form>
                     </div>
+                    {% if round.file %}
+                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success mr-auto">File</a>
+                    {% endif %}
                     <div class="form-group">
                         <form method="post" action="{% url 'delete_round' %}">
                             {% csrf_token %}
