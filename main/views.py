@@ -106,6 +106,12 @@ def rounds(request):
     return render(request, template_name='rounds.html', context=context)
 
 @login_required
+def round_file(request, round_id):
+    round = Round.objects.get(id=round_id)
+
+    return HttpResponse(round.file, content_type='application/pdf')
+
+@login_required
 def create_rounds(request):
     if request.method == 'POST':
         round_name = request.POST.get('round_name')

@@ -21,6 +21,9 @@
                         {{ problem.correct_answer }}
                         <br>
                     {% endfor %}
+                    {% if round.file %}
+                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success">File</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="col">
@@ -44,7 +47,7 @@
 
     {% endfor %}
 
-    <button class="btn btn-primary" data-toggle="modal" data-target="#roundModal">Create New Round</button>
+    <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#roundModal">Create New Round</button>
 
     <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="roundModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

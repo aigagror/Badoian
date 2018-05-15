@@ -18,6 +18,7 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
 
     path('rounds/', views.rounds, name='rounds'),
+    path('round_file/<int:round_id>/', views.round_file, name='round_file'),
     path('create_rounds/', views.create_rounds, name='create_rounds'),
     path('delete_round/', views.delete_round, name='delete_round'),
 ]
