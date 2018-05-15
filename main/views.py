@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
 from django.template import Context, Template
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import *
@@ -109,6 +109,9 @@ def rounds(request):
 def create_rounds(request):
     if request.method == 'POST':
         round_name = request.POST.get('round_name')
+
+        file = request.FILES['round_file']
+
         q_1 = request.POST.get('q_1')
         a_1 = request.POST.get('a_1')
 
@@ -127,8 +130,9 @@ def create_rounds(request):
         p_2.save()
         p_3.save()
 
+
         # Create the round
-        new_round = Round(name=round_name)
+        new_round = Round(name=round_name, file=file)
         new_round.save()
         new_round.problems.add(p_1)
         new_round.problems.add(p_2)
