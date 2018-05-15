@@ -11,9 +11,9 @@
 <div class="container">
     <h1>Rounds</h1>
 
-    {% for round in rounds %}
-        <div class="row mb-3">
-            <div class="col-8">
+    <ul class="list-group list-group-flush my-4">
+        {% for round in rounds %}
+            <li class="list-group-item">
                 <h5>{{ round.name }}
                     {% if round.file %}
                         <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-pill badge-success">File</a>
@@ -25,13 +25,11 @@
                             {{ problem.question }}
                             <br>
                         {% endfor %}
-
                     </div>
                 {% endif %}
-            </div>
-            <div class="col">
-                <div class="form-inline float-right">
-                    <div class="form-group mr-4">
+
+                <div class="form-inline">
+                    <div class="form-group mr-auto">
                         <form method="post" action="">
                             {% csrf_token %}
                             <input hidden name="round_id" value="{{ round.id }}">
@@ -46,10 +44,11 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </li>
 
-    {% endfor %}
+
+        {% endfor %}
+    </ul>
 
     <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#roundModal">Create New Round</button>
 
