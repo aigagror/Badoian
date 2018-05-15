@@ -12,42 +12,46 @@
     <h1>Rounds</h1>
 
     {% for round in rounds %}
-        <div class="row">
-            <div class="col">
-                <h3>{{ round.name }}</h3>
-                <div class="text-secondary">
-                    {% for problem in round.problems.all %}
-                        {{ problem.question }}
-                        {{ problem.correct_answer }}
-                        <br>
-                    {% endfor %}
+        <div class="row mb-3">
+            <div class="col-8">
+                <h5>{{ round.name }}
                     {% if round.file %}
-                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success">File</a>
+                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-pill badge-success">File</a>
                     {% endif %}
-                </div>
+                </h5>
+                {% if not round.file %}
+                    <div class="text-secondary">
+                        {% for problem in round.problems.all %}
+                            {{ problem.question }}
+                            <br>
+                        {% endfor %}
+
+                    </div>
+                {% endif %}
             </div>
             <div class="col">
-                <div class="form-group">
-                    <form method="post" action="{% url 'delete_round' %}" class="float-right">
-                        {% csrf_token %}
-                        <input hidden name="round_id" value="{{ round.id }}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-                <br>
-                <div class="form-group">
-                    <form method="post" action="" class="float-right">
-                        {% csrf_token %}
-                        <input hidden name="round_id" value="{{ round.id }}">
-                        <button type="submit" class="btn btn-outline-secondary">Edit</button>
-                    </form>
+                <div class="form-inline float-right">
+                    <div class="form-group mr-4">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <input hidden name="round_id" value="{{ round.id }}">
+                            <button type="submit" class="btn btn-outline-secondary">Edit</button>
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <form method="post" action="{% url 'delete_round' %}">
+                            {% csrf_token %}
+                            <input hidden name="round_id" value="{{ round.id }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
     {% endfor %}
 
-    <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#roundModal">Create New Round</button>
+    <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#roundModal">Create New Round</button>
 
     <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="roundModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
