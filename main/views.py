@@ -102,6 +102,7 @@ def rounds(request):
     rounds = Round.objects.all()
     context = {
         'rounds': rounds,
+        'Round': Round,
     }
     return render(request, template_name='rounds.html', context=context)
 

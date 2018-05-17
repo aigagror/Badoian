@@ -9,7 +9,47 @@ class Problem(models.Model):
     correct_answer = models.CharField(max_length=256)
 
 class Round(models.Model):
-    name = models.CharField(max_length=128)
+    GBML = 'GBML'
+    MML = 'MML'
+    NEAML = 'NEAML'
+    LEAGUE = (
+        (GBML, 'Greater Boston Mathematics League'),
+        (MML, 'Massachusetts Mathematics League'),
+        (NEAML, 'New England Association of Math Leagues'),
+    )
+
+    ONE = 'ONE'
+    TWO = 'TWO'
+    THREE = 'THREE'
+    FOUR = 'FOUR'
+    FIVE = 'FIVE'
+    SIX = 'SIX'
+    ROUND_INDEX = (
+        (ONE, 'One'),
+        (TWO, 'Two'),
+        (THREE, 'Three'),
+        (FOUR, 'Four'),
+        (FIVE, 'Five'),
+        (SIX, 'Six'),
+    )
+
+    CONTEST_INDEX = (
+        (ONE, 'One'),
+        (TWO, 'Two'),
+        (THREE, 'Three'),
+        (FOUR, 'Four'),
+        (FIVE, 'Five'),
+        (SIX, 'Six'),
+    )
+
+    YEARS = [i for i in range(1996, timezone.now().year + 1)]
+
+    league = models.CharField(choices=LEAGUE, max_length=64)
+    round_index = models.CharField(choices=ROUND_INDEX, max_length=16)
+    contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
+
+    year = models.IntegerField(default=2018)
+
     problems = models.ManyToManyField(Problem, related_name='rounds')
     file = models.FileField(null=True, blank=True)
 

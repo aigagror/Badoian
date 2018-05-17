@@ -14,7 +14,7 @@
     <ul class="list-group list-group-flush my-4">
         {% for round in rounds %}
             <li class="list-group-item">
-                <h5>{{ round.name }}</h5>
+                <h5>{{ round.league }} {{ round.year }} Contest {{ round.get_contest_index_display }} Round {{ round.get_round_index_display }}</h5>
                 {% if not round.file %}
                     <div class="text-secondary">
                         {% for problem in round.problems.all %}
@@ -65,24 +65,55 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Name</span>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">League</span>
+                                    </div>
+                                    <select class="custom-select" name="league">
+                                        {% for league in Round.LEAGUE %}
+                                            <option value="{{ league.0 }}">{{ league.0 }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
-                                <input class="form-control" type="text" placeholder="Round Name" name="round_name" required>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Round Index</span>
+                                    </div>
+                                    <select class="custom-select" name="league">
+                                        {% for index in Round.ROUND_INDEX %}
+                                            <option value="{{ index.0 }}">{{ index.0 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Contest Index</span>
+                                    </div>
+                                    <select class="custom-select" name="league">
+                                        {% for index in Round.CONTEST_INDEX %}
+                                            <option value="{{ index.0 }}">{{ index.0 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Year</span>
+                                    </div>
+                                    <select class="custom-select" name="league">
+                                        {% for year in Round.YEARS %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
+
                         <h4>Problem 1</h4>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Question</span>
-                                </div>
-                                <textarea class="form-control" placeholder="LaTeX Format" name="q_1" required>
-                                </textarea>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -96,15 +127,6 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Question</span>
-                                </div>
-                                <textarea class="form-control" placeholder="LaTeX Format" name="q_2" required>
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Answer</span>
                                 </div>
                                 <input class="form-control" type="text" placeholder="SymPy Format" name="a_2" required>
@@ -112,15 +134,6 @@
                         </div>
 
                         <h4>Problem 3</h4>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Question</span>
-                                </div>
-                                <textarea class="form-control" placeholder="LaTeX Format" name="q_3" required>
-                                </textarea>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
