@@ -5,10 +5,6 @@ import random
 
 # Create your models here.
 
-class Problem(models.Model):
-    question = models.TextField(default='')
-    correct_answer = models.CharField(max_length=256)
-
 class Round(models.Model):
     GBML = 'GBML'
     MML = 'MML'
@@ -53,7 +49,7 @@ class Round(models.Model):
 
     year = models.IntegerField(default=2018)
 
-    problems = models.ManyToManyField(Problem, related_name='rounds')
+    correct_answers = models.TextField()
     file = models.FileField(null=True, blank=True)
 
     def __str__(self):
