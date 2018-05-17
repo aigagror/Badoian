@@ -24,6 +24,7 @@ class Round(models.Model):
     FOUR = 'FOUR'
     FIVE = 'FIVE'
     SIX = 'SIX'
+    SEVEN = 'SEVEN'
     ROUND_INDEX = (
         (ONE, 'One'),
         (TWO, 'Two'),
@@ -31,6 +32,7 @@ class Round(models.Model):
         (FOUR, 'Four'),
         (FIVE, 'Five'),
         (SIX, 'Six'),
+        (SEVEN, 'Seven'),
     )
 
     CONTEST_INDEX = (
