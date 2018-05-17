@@ -78,6 +78,10 @@ def delete_submission(request):
 
     return redirect('assignments')
 
+@login_required
+def submit_submission(request):
+    foo=0
+
 
 @login_required
 def submission(request, submission_id):
@@ -96,7 +100,24 @@ def submission(request, submission_id):
 
 @login_required
 def scores(request):
-    return render(request, template_name='scores.html')
+    assignments = Assignment.objects.all()
+    for assignment in assignments:
+        members = User.objects.all()
+        for member in members:
+            try:
+                member_submission = Submission.objects.get(user=member, assignment=assignment)
+            except:
+                member_submission = None
+
+            member.score = member_submission.score() if member_submission is not None else 0
+            member.bar_width = member.score / 18 * 100
+
+        assignment.members = members
+
+    context = {
+        'assignments': assignments
+    }
+    return render(request, template_name='scores.html', context=context)
 
 @login_required
 def rounds(request):

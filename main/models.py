@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import random
 
 # Create your models here.
 
@@ -63,6 +64,9 @@ class Assignment(models.Model):
     due_time = models.DateTimeField()
     round = models.ForeignKey(Round, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '{} | Due {}'.format(self.round, self.due_time.strftime('%m/%d'))
+
 
 class Submission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -75,3 +79,7 @@ class Submission(models.Model):
     feedback = models.TextField(null=True, blank=True) # Each feedback corresponds to each answer
 
     submission_file = models.FileField(null=True, blank=True)
+
+    def score(self):
+        # TODO
+        return random.randint(0,18)
