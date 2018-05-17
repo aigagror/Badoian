@@ -75,10 +75,12 @@ class Submission(models.Model):
     submitted = models.DateTimeField(null=True, blank=True)
     started = models.DateTimeField(default=timezone.now)
     answers = models.TextField(default="") # Each answer is in its own line
-    points = models.TextField(null=True, blank=True) # Each point corresponds to each answer
+
+    points = models.TextField(null=True, blank=True) # Each point corresponds to each answer. This field is only used for manual grading
+
     feedback = models.TextField(null=True, blank=True) # Each feedback corresponds to each answer
 
-    submission_file = models.FileField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
 
     def score(self):
         # TODO

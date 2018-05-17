@@ -80,7 +80,23 @@ def delete_submission(request):
 
 @login_required
 def submit_submission(request):
-    foo=0
+    submission_id = request.POST.get('submission_id')
+
+    answers = [request.POST.get('answer_{}'.format(i)) for i in range(1,4)]
+
+    submission = Submission.objects.get(id=submission_id)
+
+    submission.answers = '\n'.join(answers)
+
+    if request.FILES.count() > 0:
+        # Submit file for manual grading
+        file = request.FILES[0]
+        submission.file = file
+
+    submission.submitted = timezone.now()
+    submission.save()
+
+    return redirect('assignments')
 
 
 @login_required
