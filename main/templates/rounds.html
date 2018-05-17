@@ -94,11 +94,29 @@
                         <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success mr-auto">File</a>
                     {% endif %}
                     <div class="form-group">
-                        <form method="post" action="{% url 'delete_round' %}">
-                            {% csrf_token %}
-                            <input hidden name="round_id" value="{{ round.id }}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <button data-toggle="modal" data-target="#delete{{ round.id }}Modal" class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="modal fade" id="delete{{ round.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="delete{{ round.id }}ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete {{ round }}?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <form method="post" action="{% url 'delete_round' %}">
+                                        {% csrf_token %}
+                                        <input hidden name="round_id" value="{{ round.id }}">
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
