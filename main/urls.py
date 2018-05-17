@@ -12,6 +12,7 @@ urlpatterns = [
     path('submission/<int:submission_id>/', views.submission, name='submission'),
     path('create_submission/', views.create_submission, name='create_submission'),
     path('delete_submission/', views.delete_submission, name='delete_submission'),
+    path('submit_submission/', views.submit_submission, name='submit_submission'),
 
     path('scores/', views.scores, name='scores'),
     path('login/', views.login, name='login'),

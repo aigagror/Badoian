@@ -85,3 +85,6 @@ class Submission(models.Model):
     def score(self):
         # TODO
         return random.randint(0,18)
+
+    def bar_width(self):
+        return self.score() / 18 * 100

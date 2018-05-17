@@ -24,7 +24,7 @@
         <div class="col">
             <div class="list-group">
                 {% for assignment in assignments %}
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start{% if assignment.submission.submitted %} bg-light{% endif %}">
                         <div>
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ assignment.round }}</h5>
@@ -35,6 +35,13 @@
                             <small>
                                 {% if assignment.submission %}
                                     Started <span class="text-secondary">{{ assignment.submission.started }}</span>
+                                    {% if assignment.submission.submitted %}
+                                        <br>
+                                        Submitted <span class="text-secondary">{{ assignment.submission.submitted }}</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ assignment.submission.bar_width}}%;" aria-valuenow="{{ assignment.submission.score }}" aria-valuemin="0" aria-valuemax="18">{{ assignment.submission.score }}</div>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
                                     Not started yet
                                 {% endif %}
@@ -43,10 +50,12 @@
                         <div class="form-inline mt-4">
                             <div class="form-group mr-auto">
                                 {% if assignment.submission %}
-                                    <form action="{% url 'submission' assignment.submission.id %}" method="get">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-success mr-auto">Resume</button>
-                                    </form>
+                                    {% if not assignment.submission.submitted %}
+                                        <form action="{% url 'submission' assignment.submission.id %}" method="get">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success mr-auto">Resume</button>
+                                        </form>
+                                    {% endif %}
                                 {% else %}
                                     <form action="{% url 'create_submission' %}" method="post">
                                         {% csrf_token %}

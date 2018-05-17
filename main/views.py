@@ -88,7 +88,7 @@ def submit_submission(request):
 
     submission.answers = '\n'.join(answers)
 
-    if request.FILES.count() > 0:
+    if len(request.FILES) > 0:
         # Submit file for manual grading
         file = request.FILES[0]
         submission.file = file

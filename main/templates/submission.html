@@ -15,7 +15,9 @@
         <a href="{% url 'round_file' submission.assignment.round.id %}" target="_blank" class="badge badge-primary mb-3">File</a>
     {% endif %}
 
-    <form>
+    <form action="{% url 'submit_submission' %}" method="post">
+        {% csrf_token %}
+        <input hidden name="submission_id" value="{{ submission.id }}">
         {% for problem in submission.assignment.round.problems.all %}
             <div class="form-group">
                 <h3>Question {{ forloop.counter }}</h3>
@@ -24,7 +26,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Answer</div>
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="SymPy Format">
+                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="SymPy Format" name="answer_{{ forloop.counter }}">
                 </div>
             </div>
         {% endfor %}
