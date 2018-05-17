@@ -84,11 +84,11 @@
 
                 <div class="form-inline">
                     <div class="form-group mr-auto">
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            <input hidden name="round_id" value="{{ round.id }}">
-                            <button type="submit" class="btn btn-outline-secondary">Edit</button>
-                        </form>
+                        <button type="submit" class="btn btn-outline-secondary"
+                                data-toggle="modal" data-target=""
+                                data-title="Edit Round" data-league="{{ round.league }}" data-year="{{ round.year }}">
+                            Edit
+                        </button>
                     </div>
                     {% if round.file %}
                         <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success mr-auto">File</a>
