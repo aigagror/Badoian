@@ -11,10 +11,68 @@
 <div class="container">
     <h1>Rounds</h1>
 
+    <div class="form-inline mb-3">
+
+        <div class="input-group mr-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">League</div>
+            </div>
+            <select class="custom-select" name="league">
+                <option value=""></option>
+                {% for league in Round.LEAGUES %}
+                    <option value="{{ league.0 }}">{{ league.0 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-group mr-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Year</div>
+            </div>
+            <select class="custom-select" name="year">
+                <option value=""></option>
+                {% for year in Round.YEARS %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-group mr-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Contest Index</div>
+            </div>
+            <select class="custom-select" name="contest_index">
+                <option value=""></option>
+                {% for contest_index in Round.CONTEST_INDEX %}
+                    <option value="{{ contest_index.1 }}">{{ contest_index.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-group mr-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Round Index</div>
+            </div>
+            <select class="custom-select" name="round_index">
+                <option value=""></option>
+                {% for round_index in Round.ROUND_INDEX %}
+                    <option value="{{ round_index.1 }}">{{ round_index.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn btn-outline-primary mr-2" type="submit">Clear Queries</button>
+
+        <button class="btn btn-primary" type="submit">Query</button>
+    </div>
+
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#roundModal">Create New Round</button>
+
     <ul class="list-group list-group-flush my-4">
         {% for round in rounds %}
             <li class="list-group-item">
-                <h5>{{ round.league }} {{ round.year }} Contest {{ round.get_contest_index_display }} Round {{ round.get_round_index_display }}</h5>
+                <h5>{{ round }}</h5>
                 {% if not round.file %}
                     <div class="text-secondary">
                         {% for problem in round.problems.all %}
@@ -49,8 +107,6 @@
         {% endfor %}
     </ul>
 
-    <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#roundModal">Create New Round</button>
-
     <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="roundModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -71,7 +127,7 @@
                                         <span class="input-group-text" id="basic-addon1">League</span>
                                     </div>
                                     <select class="custom-select" name="league">
-                                        {% for league in Round.LEAGUE %}
+                                        {% for league in Round.LEAGUES %}
                                             <option value="{{ league.0 }}">{{ league.0 }}</option>
                                         {% endfor %}
                                     </select>

@@ -12,7 +12,7 @@ class Round(models.Model):
     GBML = 'GBML'
     MML = 'MML'
     NEAML = 'NEAML'
-    LEAGUE = (
+    LEAGUES = (
         (GBML, 'Greater Boston Mathematics League'),
         (MML, 'Massachusetts Mathematics League'),
         (NEAML, 'New England Association of Math Leagues'),
@@ -44,7 +44,7 @@ class Round(models.Model):
 
     YEARS = [i for i in range(1996, timezone.now().year + 1)]
 
-    league = models.CharField(choices=LEAGUE, max_length=64)
+    league = models.CharField(choices=LEAGUES, max_length=64)
     round_index = models.CharField(choices=ROUND_INDEX, max_length=16)
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
 
@@ -52,6 +52,9 @@ class Round(models.Model):
 
     problems = models.ManyToManyField(Problem, related_name='rounds')
     file = models.FileField(null=True, blank=True)
+
+    def __str__(self):
+        return '{} {} Contest {} Round {}'.format(self.league, self.year, self.get_contest_index_display(), self.get_round_index_display())
 
 
 class Assignment(models.Model):
@@ -68,4 +71,5 @@ class Submission(models.Model):
     answers = models.TextField(default="") # Each answer is in its own line
     points = models.TextField(null=True, blank=True) # Each point corresponds to each answer
     feedback = models.TextField(null=True, blank=True) # Each feedback corresponds to each answer
-    submission_image = models.ImageField(null=True, blank=True)
+
+    submission_file = models.FileField(null=True, blank=True)

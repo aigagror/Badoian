@@ -9,19 +9,84 @@
 </head>
 <body>
 {% include 'nav_bar.html' %}
-<div class="container">
+<div class="container mb-4">
     <div class="row">
         <div class="col">
             <h1>Hello {{ user.first_name }}</h1>
         </div>
     </div>
 
-    <h3>Members</h3>
-    <ul class="list-group list-group-flush">
-        {% for member in members %}
-        <li class="list-group-item">{{ member.first_name }} {{ members.last_name }}</li>
+    <h3>Head Coaches</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Meets</th>
+            <th scope="col">Assignments</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for head_coach in head_coaches %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ head_coach.first_name }}</td>
+                <td>{{ head_coach.last_name }}</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+    <h3>Coaches</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Meets</th>
+            <th scope="col">Assignments</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for coach in coaches %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ coach.first_name }}</td>
+                <td>{{ coach.last_name }}</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Members</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Meets</th>
+            <th scope="col">Assignments</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 
 </div>
 </body>

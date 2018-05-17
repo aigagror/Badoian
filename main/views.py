@@ -8,9 +8,10 @@ from django.utils import dateparse
 # Create your views here.
 @login_required
 def index(request):
-    members = User.objects.all()
     context = {
-        'members': members,
+        'head_coaches': User.objects.filter(groups__name='Head Coach'),
+        'coaches': User.objects.filter(groups__name='Coach'),
+        'members': User.objects.filter(groups=None),
     }
     return render(request, template_name='index.html', context=context)
 
@@ -94,8 +95,8 @@ def submission(request, submission_id):
     return render(request, 'submission.html', context=context)
 
 @login_required
-def statistics(request):
-    return render(request, template_name='statistics.html')
+def scores(request):
+    return render(request, template_name='scores.html')
 
 @login_required
 def rounds(request):
