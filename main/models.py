@@ -6,7 +6,7 @@ import random
 # Create your models here.
 
 class Problem(models.Model):
-    question = models.TextField()
+    question = models.TextField(default='')
     correct_answer = models.CharField(max_length=256)
 
 class Round(models.Model):

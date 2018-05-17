@@ -167,9 +167,9 @@ def create_rounds(request):
         a_3 = request.POST.get('a_3')
 
         # Create the problems
-        p_1 = Problem(question=q_1, correct_answer=a_1)
-        p_2 = Problem(question=q_2, correct_answer=a_2)
-        p_3 = Problem(question=q_3, correct_answer=a_3)
+        p_1 = Problem(correct_answer=a_1)
+        p_2 = Problem(correct_answer=a_2)
+        p_3 = Problem(correct_answer=a_3)
 
         p_1.save()
         p_2.save()
@@ -177,7 +177,7 @@ def create_rounds(request):
 
 
         # Create the round
-        new_round = Round(name=round_name, file=file)
+        new_round = Round(file=file)
         new_round.save()
         new_round.problems.add(p_1)
         new_round.problems.add(p_2)
