@@ -28,13 +28,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for head_coach in head_coaches %}
+        {% for member in head_coaches %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ head_coach.first_name }}</td>
-                <td>{{ head_coach.last_name }}</td>
-                <td>0</td>
-                <td>0</td>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div></td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -51,13 +58,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for coach in coaches %}
+        {% for member in coaches %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ coach.first_name }}</td>
-                <td>{{ coach.last_name }}</td>
-                <td>0</td>
-                <td>0</td>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div></td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -80,8 +94,15 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ member.first_name }}</td>
                 <td>{{ member.last_name }}</td>
-                <td>0</td>
-                <td>0</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div></td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
