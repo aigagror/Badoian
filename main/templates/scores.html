@@ -11,7 +11,44 @@
     <div class="row mb-4">
         <div class="col">
             <h1>Meets</h1>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#meetModal">New Meet</button>
+            {% for competed_meet in competed_meets %}
+                <h3>{{ competed_meet }}</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for player in competed_meet.players %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ player.first_name }} {{ player.last_name }}</td>
+                            <td>
+                                {% if player.score %}
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ player.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ player.score }}</div>
+                                    </div>
+                                {% else %}
+                                    <small class="text-secondary">Did not participate</small>
+                                {% endif %}
+                            </td>
+                            <td class="text-right">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary">Add Score</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#meetModal">Add Competed Meet</button>
 
             <div class="modal fade" id="meetModal" tabindex="-1" role="dialog" aria-labelledby="meetModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -22,7 +59,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="" method="post">
+                        <form action="{% url 'create_competed_meet' %}" method="post">
                             {% csrf_token %}
                             <div class="modal-body">
                                 <div class="form-group">

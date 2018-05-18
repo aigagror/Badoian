@@ -19,16 +19,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for individual_score in individual_scores %}
+        {% for meet in competed_meets %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
 
-                <td>{{ individual_score }}</td>
+                <td>{{ meet }}</td>
 
                 <td>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ individual_score.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ individual_score }}</div>
-                    </div>
+                    {% if meet.score %}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ meet.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ meet.score }}</div>
+                        </div>
+                    {% else %}
+                        <small class="text-secondary">Did not participate</small>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

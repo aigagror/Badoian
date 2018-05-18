@@ -61,15 +61,20 @@ def demote(request):
 @login_required
 def player(request, user_id):
     user = User.objects.get(id = user_id)
-    individual_scores = IndividualScore.objects.filter(user=user).order_by('-start_year', '-contest_index')
     assignments = Assignment.objects.all()
     for assignment in assignments:
         submission = Submission.objects.filter(user=user, assignment=assignment).first()
         assignment.submission = submission
 
+    competed_meets = CompetedMeet.objects.all()
+    for meet in competed_meets:
+        individual_score = IndividualScore.objects.filter(user=user, competed_meet=meet).first()
+        meet.score = individual_score.score if individual_score is not None else None
+        meet.bar_width = meet.score / 18 * 100 if meet.score is not None else None
+
     context = {
         'user': user,
-        'individual_scores': individual_scores,
+        'competed_meets': competed_meets,
         'assignments': assignments
     }
     return render(request, 'player.html', context)
@@ -192,6 +197,17 @@ def submission(request, submission_id):
     return render(request, 'submission.html', context=context)
 
 @login_required
+def create_competed_meet(request):
+    league = request.POST.get('league')
+    start_year = request.POST.get('start_year')
+    contest_index = request.POST.get('contest_index')
+
+    competed_meet = CompetedMeet(league=league, start_year=start_year, contest_index=contest_index)
+    competed_meet.save()
+
+    return redirect('scores')
+
+@login_required
 def scores(request):
     assignments = Assignment.objects.all()
     for assignment in assignments:
@@ -207,9 +223,20 @@ def scores(request):
 
         assignment.members = members
 
+    competed_meets = CompetedMeet.objects.all()
+    for meet in competed_meets:
+        players = User.objects.exclude(groups=None).exclude(groups__name='Head Coach')
+        for player in players:
+            individual_score = IndividualScore.objects.filter(competed_meet=meet, user=player).first()
+            player.score = individual_score.score if individual_score is not None else None
+            player.bar_width = player.score / 18 * 100 if player.score is not None else None
+
+        meet.players = players
+
     context = {
         'assignments': assignments,
-        'Meet': Meet,
+        'competed_meets': competed_meets,
+        'Meet': Meet
     }
     return render(request, template_name='scores.html', context=context)
 
