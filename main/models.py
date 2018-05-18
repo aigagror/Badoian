@@ -5,6 +5,9 @@ import random
 
 # Create your models here.
 class Meet(models.Model):
+    class Meta:
+        abstract = True
+
     GBML = 'GBML'
     MML = 'MML'
     NEAML = 'NEAML'
@@ -37,49 +40,18 @@ class Meet(models.Model):
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
     start_year = models.IntegerField(default=2018)
 
-class Round(models.Model):
-    GBML = 'GBML'
-    MML = 'MML'
-    NEAML = 'NEAML'
-    LEAGUES = (
-        (GBML, 'Greater Boston Mathematics League'),
-        (MML, 'Massachusetts Mathematics League'),
-        (NEAML, 'New England Association of Math Leagues'),
-    )
-
-    ONE = 'ONE'
-    TWO = 'TWO'
-    THREE = 'THREE'
-    FOUR = 'FOUR'
-    FIVE = 'FIVE'
-    SIX = 'SIX'
-    SEVEN = 'SEVEN'
+class Round(Meet):
     ROUND_INDEX = (
-        (ONE, 'One'),
-        (TWO, 'Two'),
-        (THREE, 'Three'),
-        (FOUR, 'Four'),
-        (FIVE, 'Five'),
-        (SIX, 'Six'),
-        (SEVEN, 'Seven'),
+        (Meet.ONE, 'One'),
+        (Meet.TWO, 'Two'),
+        (Meet.THREE, 'Three'),
+        (Meet.FOUR, 'Four'),
+        (Meet.FIVE, 'Five'),
+        (Meet.SIX, 'Six'),
+        (Meet.SEVEN, 'Seven'),
     )
 
-    CONTEST_INDEX = (
-        (ONE, 'One'),
-        (TWO, 'Two'),
-        (THREE, 'Three'),
-        (FOUR, 'Four'),
-        (FIVE, 'Five'),
-        (SIX, 'Six'),
-    )
-
-    YEARS = [i for i in range(1996, timezone.now().year + 1)]
-
-    league = models.CharField(choices=LEAGUES, max_length=64)
     round_index = models.CharField(choices=ROUND_INDEX, max_length=16)
-    contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
-
-    year = models.IntegerField(default=2018)
 
     correct_answers = models.TextField()
     file = models.FileField(null=True, blank=True)
@@ -101,7 +73,7 @@ class Round(models.Model):
         return len(self.correct_answers_list)
 
     def __str__(self):
-        return '{} {} Contest {} Round {}'.format(self.league, self.year, self.get_contest_index_display(), self.get_round_index_display())
+        return '{} {} Contest {} Round {}'.format(self.league, self.start_year, self.get_contest_index_display(), self.get_round_index_display())
 
 
 class Assignment(models.Model):

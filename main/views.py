@@ -162,37 +162,28 @@ def round_file(request, round_id):
 @login_required
 def create_rounds(request):
     if request.method == 'POST':
-        round_name = request.POST.get('round_name')
+        league = request.POST.get('league')
+        contest_index = request.POST.get('contest_index')
+        start_year = request.POST.get('start_year')
+
+        round_index = request.POST.get('round_index')
 
         file = request.FILES['round_file']
 
-        q_1 = request.POST.get('q_1')
         a_1 = request.POST.get('a_1')
 
-        q_2 = request.POST.get('q_2')
         a_2 = request.POST.get('a_2')
 
-        q_3 = request.POST.get('q_3')
         a_3 = request.POST.get('a_3')
 
         # Create the problems
-        p_1 = Problem(correct_answer=a_1)
-        p_2 = Problem(correct_answer=a_2)
-        p_3 = Problem(correct_answer=a_3)
-
-        p_1.save()
-        p_2.save()
-        p_3.save()
-
+        correct_answers = '\n'.join([a_1, a_2, a_3])
 
         # Create the round
-        new_round = Round(file=file)
+        new_round = Round(file=file, correct_answers=correct_answers,
+                          round_index=round_index, league=league,
+                          contest_index=contest_index, start_year=start_year)
         new_round.save()
-        new_round.problems.add(p_1)
-        new_round.problems.add(p_2)
-        new_round.problems.add(p_3)
-        new_round.save()
-
 
         return redirect('rounds')
 

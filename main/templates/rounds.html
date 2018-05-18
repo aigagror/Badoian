@@ -188,31 +188,31 @@
 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Round Index</span>
+                                        <span class="input-group-text" id="basic-addon1">Round</span>
                                     </div>
-                                    <select class="custom-select" name="league">
+                                    <select class="custom-select" name="round_index">
                                         {% for index in Round.ROUND_INDEX %}
-                                            <option value="{{ index.0 }}">{{ index.0 }}</option>
+                                            <option value="{{ index.0 }}">{{ index.1 }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Contest Index</span>
+                                        <span class="input-group-text" id="basic-addon1">Contest</span>
                                     </div>
-                                    <select class="custom-select" name="league">
+                                    <select class="custom-select" name="contest_index">
                                         {% for index in Round.CONTEST_INDEX %}
-                                            <option value="{{ index.0 }}">{{ index.0 }}</option>
+                                            <option value="{{ index.0 }}">{{ index.1 }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Year</span>
+                                        <span class="input-group-text" id="basic-addon1">Start Year</span>
                                     </div>
-                                    <select class="custom-select" name="league">
+                                    <select class="custom-select" name="start_year">
                                         {% for year in Round.YEARS %}
                                             <option value="{{ year }}">{{ year }}</option>
                                         {% endfor %}
