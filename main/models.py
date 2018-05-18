@@ -40,6 +40,10 @@ class Meet(models.Model):
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
     start_year = models.IntegerField(default=2018)
 
+class IndividualScore(Meet):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
+
 class Round(Meet):
     ROUND_INDEX = (
         (Meet.ONE, 'One'),
