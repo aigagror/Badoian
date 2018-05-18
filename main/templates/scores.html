@@ -8,9 +8,74 @@
 <body>
 {% include 'nav_bar.html' %}
 <div class="container">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col">
             <h1>Meets</h1>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#meetModal">New Meet</button>
+
+            <div class="modal fade" id="meetModal" tabindex="-1" role="dialog" aria-labelledby="meetModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="meetModalLabel">New Meet</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="form-group">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">League</span>
+                                        </div>
+                                        <select class="custom-select" name="league">
+                                            {% for league in Meet.LEAGUES %}
+                                                <option value="{{ league.0 }}">{{ league.0 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Contest</span>
+                                        </div>
+                                        <select class="custom-select" name="contest_index">
+                                            {% for index in Meet.CONTEST_INDEX %}
+                                                <option value="{{ index.0 }}">{{ index.1 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Start Year</span>
+                                        </div>
+                                        <select class="custom-select" name="start_year">
+                                            {% for year in Meet.YEARS %}
+                                                <option value="{{ year }}">{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success ml-auto">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -26,6 +91,7 @@
                             <th scope="col">First</th>
                             <th scope="col">Last</th>
                             <th scope="col">Score</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,6 +104,10 @@
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ member.bar_width}}%;" aria-valuenow="{{ member.score }}" aria-valuemin="0" aria-valuemax="18">{{ member.score }}</div>
                                     </div>
+                                    <span class="badge badge-success">Autograded</span>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-primary">Manually Grade</button>
                                 </td>
                             </tr>
                         {% endfor %}

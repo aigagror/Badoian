@@ -200,7 +200,8 @@ def scores(request):
         assignment.members = members
 
     context = {
-        'assignments': assignments
+        'assignments': assignments,
+        'Meet': Meet,
     }
     return render(request, template_name='scores.html', context=context)
 
