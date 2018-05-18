@@ -44,6 +44,9 @@ class IndividualScore(Meet):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
 
+    def bar_width(self):
+        return self.score / 18 * 100
+
 class Round(Meet):
     ROUND_INDEX = (
         (Meet.ONE, 'One'),

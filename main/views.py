@@ -4,13 +4,73 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import *
 from .models import *
 from django.utils import dateparse
+from django.contrib.auth.models import Group
 
 # Create your views here.
 @login_required
+def promote(request):
+    user_id = request.POST.get('user_id')
+
+    head_coach_group = Group.objects.get(name='Head Coach')
+    coach_group = Group.objects.get(name='Coach')
+    member_group = Group.objects.get(name='Member')
+
+    user = User.objects.get(id=user_id)
+
+    if head_coach_group in user.groups.all():
+        foo = 0
+    elif coach_group in user.groups.all():
+        user.groups.clear()
+        user.groups.add(head_coach_group)
+
+    elif member_group in user.groups.all():
+        user.groups.clear()
+        user.groups.add(coach_group)
+
+    else:
+        user.groups.clear()
+        user.groups.add(member_group)
+
+    return redirect('index')
+
+@login_required
+def demote(request):
+    user_id = request.POST.get('user_id')
+
+    head_coach_group = Group.objects.get(name='Head Coach')
+    coach_group = Group.objects.get(name='Coach')
+    member_group = Group.objects.get(name='Member')
+
+    user = User.objects.get(id=user_id)
+
+    if head_coach_group in user.groups.all():
+        user.groups.clear()
+        user.groups.add(coach_group)
+
+    elif coach_group in user.groups.all():
+        user.groups.clear()
+        user.groups.add(member_group)
+
+    elif member_group in user.groups.all():
+        user.groups.clear()
+
+
+    return redirect('index')
+
+
+@login_required
 def player(request, user_id):
     user = User.objects.get(id = user_id)
+    individual_scores = IndividualScore.objects.filter(user=user).order_by('-start_year', '-contest_index')
+    assignments = Assignment.objects.all()
+    for assignment in assignments:
+        submission = Submission.objects.filter(user=user, assignment=assignment).first()
+        assignment.submission = submission
+
     context = {
         'user': user,
+        'individual_scores': individual_scores,
+        'assignments': assignments
     }
     return render(request, 'player.html', context)
 
@@ -93,7 +153,7 @@ def submit_submission(request):
 
     submission = Submission.objects.get(id=submission_id)
 
-    answers = [request.POST.get('answer_{}'.format(i)) for i in range(1, submission.number_of_problems + 1)]
+    answers = [request.POST.get('answer_{}'.format(i)) for i in range(1, submission.assignment.round.number_of_problems + 1)]
 
     submission.answers = '\n'.join(answers)
 
