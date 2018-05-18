@@ -4,6 +4,38 @@ from django.utils import timezone
 import random
 
 # Create your models here.
+class Meet(models.Model):
+    GBML = 'GBML'
+    MML = 'MML'
+    NEAML = 'NEAML'
+    LEAGUES = (
+        (GBML, 'Greater Boston Mathematics League'),
+        (MML, 'Massachusetts Mathematics League'),
+        (NEAML, 'New England Association of Math Leagues'),
+    )
+
+    ONE = 'ONE'
+    TWO = 'TWO'
+    THREE = 'THREE'
+    FOUR = 'FOUR'
+    FIVE = 'FIVE'
+    SIX = 'SIX'
+    SEVEN = 'SEVEN'
+
+    CONTEST_INDEX = (
+        (ONE, 'One'),
+        (TWO, 'Two'),
+        (THREE, 'Three'),
+        (FOUR, 'Four'),
+        (FIVE, 'Five'),
+        (SIX, 'Six'),
+    )
+
+    YEARS = [i for i in range(1996, timezone.now().year + 1)]
+
+    league = models.CharField(choices=LEAGUES, max_length=64)
+    contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
+    year = models.IntegerField(default=2018)
 
 class Round(models.Model):
     GBML = 'GBML'
