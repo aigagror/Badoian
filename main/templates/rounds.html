@@ -14,7 +14,24 @@
                 var modal = $(this)
                 modal.find('#round-id').val(round_id)
             })
+
+            $('#newAssignmentModal').on('show.bs.modal' , function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var round_id = button.data('round-id') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('#round-id').val(round_id)
+            })
         });
+    </script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        } );
     </script>
 </head>
 <body>
@@ -84,7 +101,13 @@
     <ul class="list-group list-group-flush my-4">
         {% for round in rounds %}
             <li class="list-group-item">
-                <h5>{{ round }}</h5>
+                <h5>{{ round }}
+                    <span>
+                    {% if round.file %}
+                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success">File</a>
+                    {% endif %}
+                    </span>
+                </h5>
                 {% if not round.file %}
                     <div class="text-secondary">
                         {% for problem in round.problems.all %}
@@ -102,13 +125,14 @@
                             Edit
                         </button>
                     </div>
-                    {% if round.file %}
-                        <a href="{% url 'round_file' round.id %}" target="_blank" class="badge badge-success mr-auto">File</a>
-                    {% endif %}
+
+                    <div class="form-group mr-auto">
+                        <button class="btn btn-primary" data-round-id="{{ round.id }}" data-toggle="modal" data-target="#newAssignmentModal">Assign Round</button>
+                    </div>
+
                     <div class="form-group">
                         <button data-toggle="modal" data-target="#confirmModal" class="btn btn-danger" data-round-id="{{ round.id }}">Delete</button>
                     </div>
-
                 </div>
             </li>
 
@@ -243,6 +267,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="newAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="newAssignmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newAssignmentModalLabel">When Do You Want the Assignment Due?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'create_assignment' %}" method="post">
+                    {% csrf_token %}
+                    <input hidden name="round_id" id="round-id">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Due Date</span>
+                                </div>
+                                <input class="form-control" type="text" id="datepicker" name="due_date" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success ml-auto">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>

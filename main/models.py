@@ -64,6 +64,10 @@ class Round(models.Model):
 
         return ret
 
+    @property
+    def number_of_problems(self):
+        return len(self.correct_answers_list)
+
     def __str__(self):
         return '{} {} Contest {} Round {}'.format(self.league, self.year, self.get_contest_index_display(), self.get_round_index_display())
 

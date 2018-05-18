@@ -82,9 +82,9 @@ def delete_submission(request):
 def submit_submission(request):
     submission_id = request.POST.get('submission_id')
 
-    answers = [request.POST.get('answer_{}'.format(i)) for i in range(1,4)]
-
     submission = Submission.objects.get(id=submission_id)
+
+    answers = [request.POST.get('answer_{}'.format(i)) for i in range(1, submission.number_of_problems + 1)]
 
     submission.answers = '\n'.join(answers)
 
