@@ -35,7 +35,7 @@ class Meet(models.Model):
 
     league = models.CharField(choices=LEAGUES, max_length=64)
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
-    year = models.IntegerField(default=2018)
+    start_year = models.IntegerField(default=2018)
 
 class Round(models.Model):
     GBML = 'GBML'
