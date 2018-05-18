@@ -13,7 +13,7 @@ def promote(request):
 
     head_coach_group = Group.objects.get(name='Head Coach')
     coach_group = Group.objects.get(name='Coach')
-    member_group = Group.objects.get(name='Member')
+    member_group = Group.objects.get(name='Player')
 
     user = User.objects.get(id=user_id)
 
@@ -39,7 +39,7 @@ def demote(request):
 
     head_coach_group = Group.objects.get(name='Head Coach')
     coach_group = Group.objects.get(name='Coach')
-    member_group = Group.objects.get(name='Member')
+    member_group = Group.objects.get(name='Player')
 
     user = User.objects.get(id=user_id)
 

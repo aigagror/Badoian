@@ -58,8 +58,16 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group-vertical btn-group-sm">
-                        <button class="btn btn-sm btn-success">Promote</button>
-                        <button class="btn btn-danger">Demote</button>
+                        <form action="{% url 'promote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-success">Promote</button>
+                        </form>
+                        <form action="{% url 'demote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-danger">Demote</button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -92,8 +100,16 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group-vertical btn-group-sm">
-                        <button class="btn btn-sm btn-success">Promote</button>
-                        <button class="btn btn-danger">Demote</button>
+                        <form action="{% url 'promote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-success">Promote</button>
+                        </form>
+                        <form action="{% url 'demote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-danger">Demote</button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -126,8 +142,16 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group-vertical btn-group-sm">
-                        <button class="btn btn-sm btn-success">Promote</button>
-                        <button class="btn btn-danger">Demote</button>
+                        <form action="{% url 'promote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-success">Promote</button>
+                        </form>
+                        <form action="{% url 'demote' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="user_id" value="{{ player.id }}">
+                            <button type="submit" class="btn btn-sm btn-danger">Demote</button>
+                        </form>
                     </div>
                 </td>
             </tr>
