@@ -21,22 +21,15 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Score</th>
+            <th scope="col">Name</th>
         </tr>
         </thead>
         <tbody>
-        {% for member in head_coaches %}
+        {% for player in head_coaches %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ member.first_name }}</td>
-                <td>{{ member.last_name }}</td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
-                    </div>
-                </td>
+
+                <td>{{ player.first_name }} {{ player.last_name}}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -46,20 +39,27 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th scope="col">Name</th>
+
             <th scope="col">Score</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        {% for member in coaches %}
+        {% for player in coaches %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ member.first_name }}</td>
-                <td>{{ member.last_name }}</td>
+
+                <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group-vertical btn-group-sm">
+                        <button class="btn btn-sm btn-success">Promote</button>
+                        <button class="btn btn-danger">Demote</button>
                     </div>
                 </td>
             </tr>
@@ -67,25 +67,33 @@
         </tbody>
     </table>
 
-    <h3>Members</h3>
+    <h3>Players</h3>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th scope="col">Name</th>
+
             <th scope="col">Score</th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
-        {% for member in members %}
+        {% for player in players %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ member.first_name }}</td>
-                <td>{{ member.last_name }}</td>
+
+                <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group-vertical btn-group-sm">
+                        <button class="btn btn-sm btn-success">Promote</button>
+                        <button class="btn btn-danger">Demote</button>
                     </div>
                 </td>
             </tr>
@@ -93,25 +101,33 @@
         </tbody>
     </table>
 
-    <h3>Non-Members</h3>
+    <h3>Non-Players</h3>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th scope="col">Name</th>
+
             <th scope="col">Score</th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
-        {% for member in non_members %}
+        {% for player in non_players %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ member.first_name }}</td>
-                <td>{{ member.last_name }}</td>
+
+                <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group-vertical btn-group-sm">
+                        <button class="btn btn-sm btn-success">Promote</button>
+                        <button class="btn btn-danger">Demote</button>
                     </div>
                 </td>
             </tr>

@@ -7,11 +7,20 @@ from django.utils import dateparse
 
 # Create your views here.
 @login_required
+def player(request, user_id):
+    user = User.objects.get(id = user_id)
+    context = {
+        'user': user,
+    }
+    return render(request, 'player.html', context)
+
+@login_required
 def index(request):
     context = {
         'head_coaches': User.objects.filter(groups__name='Head Coach'),
         'coaches': User.objects.filter(groups__name='Coach'),
-        'members': User.objects.filter(groups=None),
+        'players': User.objects.filter(groups__name='Player'),
+        'non_players': User.objects.filter(groups=None),
     }
     return render(request, template_name='index.html', context=context)
 
