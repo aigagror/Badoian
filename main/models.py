@@ -40,9 +40,14 @@ class Meet(models.Model):
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
     start_year = models.IntegerField(default=2018)
 
-class IndividualScore(Meet):
+class CompetedMeet(Meet):
+    def __str__(self):
+        return '{} {} Contest {}'.format(self.league, self.start_year, self.get_contest_index_display())
+
+class IndividualScore(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
+    competed_meet = models.ForeignKey(CompetedMeet, on_delete=models.CASCADE)
 
     def bar_width(self):
         return self.score / 18 * 100
