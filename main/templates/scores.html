@@ -10,7 +10,12 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Scores</h1>
+            <h1>Meets</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>Assignments</h1>
             {% for assignment in assignments %}
                 <h3 data-toggle="collapse" data-target="#collapse{{ assignment.id }}">{{ assignment }}</h3>
                 <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapse{{ assignment.id }}">

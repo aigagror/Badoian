@@ -52,6 +52,18 @@ class Round(models.Model):
     correct_answers = models.TextField()
     file = models.FileField(null=True, blank=True)
 
+    @property
+    def correct_answers_list(self):
+        ret = []
+        lines = self.correct_answers.splitlines()
+        count = 0
+        for line in lines:
+            bare = line.strip()
+            if bare != '':
+                ret.append(line)
+
+        return ret
+
     def __str__(self):
         return '{} {} Contest {} Round {}'.format(self.league, self.year, self.get_contest_index_display(), self.get_round_index_display())
 

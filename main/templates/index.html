@@ -23,8 +23,7 @@
             <th scope="col">#</th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
-            <th scope="col">Meets</th>
-            <th scope="col">Assignments</th>
+            <th scope="col">Score</th>
         </tr>
         </thead>
         <tbody>
@@ -33,10 +32,6 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ member.first_name }}</td>
                 <td>{{ member.last_name }}</td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
-                    </div></td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
@@ -53,8 +48,7 @@
             <th scope="col">#</th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
-            <th scope="col">Meets</th>
-            <th scope="col">Assignments</th>
+            <th scope="col">Score</th>
         </tr>
         </thead>
         <tbody>
@@ -63,10 +57,6 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ member.first_name }}</td>
                 <td>{{ member.last_name }}</td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
-                    </div></td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
@@ -84,8 +74,7 @@
             <th scope="col">#</th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
-            <th scope="col">Meets</th>
-            <th scope="col">Assignments</th>
+            <th scope="col">Score</th>
         </tr>
         </thead>
         <tbody>
@@ -97,7 +86,29 @@
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
-                    </div></td>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Non-Members</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for member in non_members %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
