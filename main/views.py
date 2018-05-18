@@ -76,11 +76,19 @@ def player(request, user_id):
 
 @login_required
 def index(request):
+
+    def add_scores(users):
+        for user in users:
+            # TODO
+            user.score = 0
+            user.bar_width = 0
+        return users
+
     context = {
-        'head_coaches': User.objects.filter(groups__name='Head Coach'),
-        'coaches': User.objects.filter(groups__name='Coach'),
-        'players': User.objects.filter(groups__name='Player'),
-        'non_players': User.objects.filter(groups=None),
+        'head_coaches': add_scores(User.objects.filter(groups__name='Head Coach')),
+        'coaches': add_scores(User.objects.filter(groups__name='Coach')),
+        'players': add_scores(User.objects.filter(groups__name='Player')),
+        'non_players': add_scores(User.objects.filter(groups=None)),
     }
     return render(request, template_name='index.html', context=context)
 

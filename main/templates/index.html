@@ -53,7 +53,7 @@
                 <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ player.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ player.bar_width }}</div>
                     </div>
                 </td>
                 <td class="text-right">
@@ -95,7 +95,7 @@
                 <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ player.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ player.bar_width }}</div>
                     </div>
                 </td>
                 <td class="text-right">
@@ -137,7 +137,7 @@
                 <td><a class="nav-link" href="{% url 'player' player.id %}">{{ player.first_name }} {{ player.last_name}}</a></td>
                 <td>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">4</div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ player.bar_width }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ player.score }}</div>
                     </div>
                 </td>
                 <td class="text-right">
