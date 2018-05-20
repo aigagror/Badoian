@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import random
+import sympy
+from sympy.parsing.sympy_parser import parse_expr
 
 # Create your models here.
 class Meet(models.Model):
@@ -104,15 +106,46 @@ class Submission(models.Model):
     started = models.DateTimeField(default=timezone.now)
     answers = models.TextField(default="") # Each answer is in its own line
 
-    points = models.TextField(null=True, blank=True) # Each point corresponds to each answer. This field is only used for manual grading
+    correct = models.TextField(null=True, blank=True) # Each line corresponds to each answer. This field is only used for manual grading.
+    # The value in each line can take on the values 'correct' or 'incorrect'
 
     feedback = models.TextField(null=True, blank=True) # Each feedback corresponds to each answer
 
     file = models.FileField(null=True, blank=True)
 
     def score(self):
-        # TODO
-        return random.randint(0,18)
+        total = 0
+        point_values = [1,2,3]
+        correct_answer_list = self.assignment.round.correct_answers_list
+        n = len(correct_answer_list)
+
+        if self.correct is not None:
+            results = self.correct.splitlines()
+            for i in range(n):
+                result = results[i]
+                if result == 'correct':
+                    total += point_values[i]
+
+            return total
+
+        for i in range(n):
+            correct_answer = correct_answer_list[i]
+            my_answer = self.answers_list[i]
+
+            ca_parsed = parse_expr(correct_answer)
+            ma_parsed = parse_expr(my_answer)
+
+            correct = sympy.simplify(ca_parsed - ma_parsed) == 0
+
+            if correct:
+                total += point_values[i]
+
+        return total
 
     def bar_width(self):
         return self.score() / 18 * 100
+
+    @property
+    def answers_list(self):
+        ret = self.answers.splitlines()
+        return ret

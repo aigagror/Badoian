@@ -204,8 +204,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Score</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -214,20 +213,25 @@
                                 {% for member in assignment.members %}
                                     <tr>
                                         <th scope="row">{{ forloop.counter }}</th>
-                                        <td>{{ member.first_name }}</td>
-                                        <td>{{ member.last_name }}</td>
+                                        <td>{{ member.first_name }} {{ member.last_name }}</td>
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" style="width: {{ member.bar_width}}%;" aria-valuenow="{{ member.score }}" aria-valuemin="0" aria-valuemax="18">{{ member.score }}</div>
                                             </div>
                                             {% if member.submission.submitted %}
-                                                <span class="badge badge-success">Autograded</span>
+                                                {% if member.submission.correct != None %}
+                                                    <span class="badge badge-info">Manually Graded</span>
+                                                {% else %}
+                                                    <span class="badge badge-success">Autograded</span>
+                                                {% endif %}
                                             {% else %}
                                                 <span class="badge badge-warning">Incomplete</span>
                                             {% endif %}
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-sm btn-primary">Manually Grade</button>
+                                            {% if member.submission != None %}
+                                                <a class="nav-link" href="{% url 'submission' member.submission.id %}">View</a>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

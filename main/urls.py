@@ -17,6 +17,7 @@ urlpatterns = [
     path('create_submission/', views.create_submission, name='create_submission'),
     path('delete_submission/', views.delete_submission, name='delete_submission'),
     path('submit_submission/', views.submit_submission, name='submit_submission'),
+    path('manually_grade_submission/', views.manually_grade_submission, name='manually_grade_submission'),
 
     path('scores/', views.scores, name='scores'),
     path('edit_score/', views.edit_score, name='edit_score'),

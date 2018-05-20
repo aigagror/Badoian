@@ -10,56 +10,115 @@
 
 <div class="container mb-4">
     <h1>Submission</h1>
-
+    <small class="text-secondary">{{ submission.assignment.round }}</small>
+    <br>
     {% if submission.assignment.round.file %}
         <a href="{% url 'round_file' submission.assignment.round.id %}" target="_blank" class="badge badge-primary mb-3">File</a>
     {% endif %}
 
-    <form action="{% url 'submit_submission' %}" method="post">
-        {% csrf_token %}
-        <input hidden name="submission_id" value="{{ submission.id }}">
-        {% for correct_answer in submission.assignment.round.correct_answers_list %}
-            <div class="form-group">
-                <h3>Question {{ forloop.counter }}</h3>
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Answer</div>
+    {% if not submission.submitted %}
+        <form action="{% url 'submit_submission' %}" method="post">
+            {% csrf_token %}
+            <input hidden name="submission_id" value="{{ submission.id }}">
+            {% for correct_answer in submission.assignment.round.correct_answers_list %}
+                <div class="form-group">
+                    <h3>Question {{ forloop.counter }}</h3>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Answer</div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="SymPy Format" name="answer_{{ forloop.counter }}">
                     </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="SymPy Format" name="answer_{{ forloop.counter }}">
+                </div>
+            {% endfor %}
+
+            <div class="form-group">
+                Alternatively, you can upload a file of your submission here
+                <input id="input-b3" name="round_file" type="file" class="file" multiple
+                       data-show-upload="false" data-show-caption="true"
+                       data-msg-placeholder="Select {files} for upload...">
+            </div>
+
+            <!-- Button trigger modal -->
+            {% if submission.submitted %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">
+                    Submit
+                </button>
+            {% else %}
+                <small class="text-secondary">Already Submitted</small>
+            {% endif %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Are You Sure?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% else %}
+
+        {% for answer in submission.answers_list %}
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            Answer {{ forloop.counter }}
+                        </div>
+                    </div>
+                    <input disabled type="text" value="{{ answer }}" class="form-control">
                 </div>
             </div>
         {% endfor %}
 
-        <div class="form-group">
-            Alternatively, you can upload a file of your submission here
-            <input id="input-b3" name="round_file" type="file" class="file" multiple
-                   data-show-upload="false" data-show-caption="true"
-                   data-msg-placeholder="Select {files} for upload...">
-        </div>
+    {% endif %}
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">
-            Submit
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmModalLabel">Are You Sure?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#manualGradeModal">Manually Grade</button>
+    <div class="modal fade" id="manualGradeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Grade</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'manually_grade_submission' %}" method="post">
+{% csrf_token %}
+                    <input hidden name="submission_id" value="{{ submission.id }}">
+                    <div class="modal-body">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="correct_1">
+                            <label class="custom-control-label" for="customCheck1">1</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2" name="correct_2">
+                            <label class="custom-control-label" for="customCheck2">2</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3" name="correct_3">
+                            <label class="custom-control-label" for="customCheck3">3</label>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Grade</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
+
 </div>
 
 </body>

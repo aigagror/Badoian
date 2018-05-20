@@ -190,6 +190,30 @@ def submit_submission(request):
 
     return redirect('assignments')
 
+@login_required
+def manually_grade_submission(request):
+    submission_id = request.POST.get('submission_id')
+
+    submission = Submission.objects.get(id=submission_id)
+
+    verdict = []
+
+    c1 = request.POST.get('correct_1')
+    c2 = request.POST.get('correct_2')
+    c3 = request.POST.get('correct_3')
+
+    verdict = [c1, c2, c3]
+
+    verdict = map(lambda x: 'correct' if x == 'on' else 'incorrect', verdict)
+
+    correct = '\n'.join(verdict)
+
+    submission.correct = correct
+
+    submission.save()
+
+    return redirect('scores')
+
 
 @login_required
 def submission(request, submission_id):
