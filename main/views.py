@@ -129,6 +129,16 @@ def create_assignment(request):
     return redirect('assignments')
 
 @login_required
+def assignment(request, assignment_id):
+    assignment = Assignment.objects.get(id=assignment_id)
+
+    context = {
+        'assignment': assignment,
+    }
+
+    return render(request, 'assignment.html', context)
+
+@login_required
 def delete_assignment(request):
     assignment_id = request.POST.get('assignment_id')
 

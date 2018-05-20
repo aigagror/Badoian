@@ -7,9 +7,10 @@ urlpatterns = [
     path('player/<int:user_id>/', views.player, name='player'),
     path('promote/', views.promote, name='promote'),
     path('demote/', views.demote, name='demote'),
-    path('assignments/', views.assignments, name='assignments'),
 
+    path('assignments/', views.assignments, name='assignments'),
     path('create_assignment/', views.create_assignment, name='create_assignment'),
+    path('assignment/<int:assignment_id>/', views.assignment, name='assignment'),
     path('delete_assignment/', views.delete_assignment, name='delete_assignment'),
 
     path('submission/<int:submission_id>/', views.submission, name='submission'),
@@ -29,3 +30,5 @@ urlpatterns = [
     path('create_rounds/', views.create_rounds, name='create_rounds'),
     path('delete_round/', views.delete_round, name='delete_round'),
 ]
+
+
