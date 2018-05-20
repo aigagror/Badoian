@@ -84,9 +84,9 @@ def index(request):
 
     def add_scores(users):
         for user in users:
-            # TODO
-            user.score = 0
-            user.bar_width = 0
+            individual_scores = IndividualScore.objects.filter(user=user, competed_meet__start_year__gte=timezone.now().year)
+            user.score = sum(map(lambda x: x.score, individual_scores))
+            user.bar_width = user.score / (18*len(individual_scores)) * 100 if len(individual_scores) > 0 else 0
         return users
 
     context = {
@@ -241,7 +241,7 @@ def scores(request):
 
         assignment.members = members
 
-    competed_meets = CompetedMeet.objects.all()
+    competed_meets = CompetedMeet.objects.all().order_by('-start_year')
     for meet in competed_meets:
         players = User.objects.exclude(groups=None).exclude(groups__name='Head Coach')
         for player in players:
