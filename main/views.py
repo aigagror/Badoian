@@ -218,6 +218,14 @@ def create_competed_meet(request):
     return redirect('scores')
 
 @login_required
+def delete_competed_meet(request):
+    meet_id = request.POST.get('competed_meet_id')
+    competed_meet = CompetedMeet.objects.get(id=meet_id)
+    competed_meet.delete()
+
+    return redirect('scores')
+
+@login_required
 def scores(request):
     assignments = Assignment.objects.all()
     for assignment in assignments:
