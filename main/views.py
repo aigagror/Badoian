@@ -236,6 +236,7 @@ def scores(request):
             except:
                 member_submission = None
 
+            member.submission = member_submission
             member.score = member_submission.score() if member_submission is not None else 0
             member.bar_width = member.score / 18 * 100
 

@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapse{{ competed_meet.id }}">
+                        <div class="collapse" id="collapse{{ competed_meet.id }}">
 
                             <table class="table">
                                 <thead>
@@ -199,7 +199,7 @@
                         <div data-toggle="collapse" data-target="#collapseAssignment{{ assignment.id }}" class="card-header">
                             <h5>{{ assignment }}</h5>
                         </div>
-                        <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapseAssignment{{ assignment.id }}">
+                        <div class="collapse" id="collapseAssignment{{ assignment.id }}">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -220,7 +220,11 @@
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" style="width: {{ member.bar_width}}%;" aria-valuenow="{{ member.score }}" aria-valuemin="0" aria-valuemax="18">{{ member.score }}</div>
                                             </div>
-                                            <span class="badge badge-success">Autograded</span>
+                                            {% if member.submission.submitted %}
+                                                <span class="badge badge-success">Autograded</span>
+                                            {% else %}
+                                                <span class="badge badge-warning">Incomplete</span>
+                                            {% endif %}
                                         </td>
                                         <td class="text-center">
                                             <button class="btn btn-sm btn-primary">Manually Grade</button>
