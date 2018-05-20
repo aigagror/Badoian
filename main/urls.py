@@ -19,6 +19,7 @@ urlpatterns = [
     path('submit_submission/', views.submit_submission, name='submit_submission'),
 
     path('scores/', views.scores, name='scores'),
+    path('edit_score/', views.edit_score, name='edit_score'),
     path('create_competed_meet/', views.create_competed_meet, name='create_competed_meet'),
     path('delete_competed_meet/', views.delete_competed_meet, name='delete_competed_meet'),
 

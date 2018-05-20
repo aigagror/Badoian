@@ -246,17 +246,33 @@ def scores(request):
         players = User.objects.exclude(groups=None).exclude(groups__name='Head Coach')
         for player in players:
             individual_score = IndividualScore.objects.filter(competed_meet=meet, user=player).first()
-            player.score = individual_score.score if individual_score is not None else None
-            player.bar_width = player.score / 18 * 100 if player.score is not None else None
+            player.individual_score = individual_score
+            player.bar_width = player.individual_score.score / 18 * 100 if player.individual_score is not None else None
 
         meet.players = players
 
     context = {
         'assignments': assignments,
         'competed_meets': competed_meets,
-        'Meet': Meet
+        'Meet': Meet,
+        'possible_scores': [i for i in range(19)],
     }
     return render(request, template_name='scores.html', context=context)
+
+@login_required
+def edit_score(request):
+    competed_meet_id = request.POST.get('competed_meet_id')
+    player_id = request.POST.get('player_id')
+
+    old_individual_scores = IndividualScore.objects.filter(competed_meet_id=competed_meet_id, user_id=player_id)
+    old_individual_scores.delete()
+
+    score = request.POST.get('score')
+
+    individual_score = IndividualScore(competed_meet_id=competed_meet_id, user_id=player_id, score=score)
+    individual_score.save()
+
+    return redirect('scores')
 
 @login_required
 def rounds(request):
