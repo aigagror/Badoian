@@ -130,7 +130,11 @@ class Submission(models.Model):
 
         for i in range(n):
             correct_answer = correct_answer_list[i]
+            if i >= len(self.answers_list):
+                break
             my_answer = self.answers_list[i]
+            if my_answer == '':
+                continue
 
             ca_parsed = parse_expr(correct_answer)
             ma_parsed = parse_expr(my_answer)
@@ -143,7 +147,7 @@ class Submission(models.Model):
         return total
 
     def bar_width(self):
-        return self.score() / 18 * 100
+        return self.score() / 6 * 100
 
     @property
     def answers_list(self):

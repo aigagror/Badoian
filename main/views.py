@@ -126,7 +126,7 @@ def create_assignment(request):
     new_assignment = Assignment(round=round, due_time=due_date)
     new_assignment.save()
 
-    return redirect('assignments')
+    return redirect('rounds')
 
 @login_required
 def assignment(request, assignment_id):
@@ -177,6 +177,7 @@ def submit_submission(request):
     submission = Submission.objects.get(id=submission_id)
 
     answers = [request.POST.get('answer_{}'.format(i)) for i in range(1, submission.assignment.round.number_of_problems + 1)]
+    answers = [answer if answer is not None else '' for answer in answers]
 
     submission.answers = '\n'.join(answers)
 
@@ -264,17 +265,18 @@ def scores(request):
             member.score = member_submission.score() if member_submission is not None else 0
             member.bar_width = member.score / 18 * 100
 
-        assignment.members = members
+        assignment.members = sorted(members, key=lambda member: -member.score)
 
     competed_meets = CompetedMeet.objects.all().order_by('-start_year')
     for meet in competed_meets:
         players = User.objects.exclude(groups=None).exclude(groups__name='Head Coach')
         for player in players:
             individual_score = IndividualScore.objects.filter(competed_meet=meet, user=player).first()
+            player.sort_score = individual_score.score if individual_score is not None else -1
             player.individual_score = individual_score
             player.bar_width = player.individual_score.score / 18 * 100 if player.individual_score is not None else None
 
-        meet.players = players
+        meet.players = sorted(players, key=lambda player: -player.sort_score)
 
     context = {
         'assignments': assignments,

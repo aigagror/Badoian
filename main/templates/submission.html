@@ -40,7 +40,7 @@
             </div>
 
             <!-- Button trigger modal -->
-            {% if submission.submitted %}
+            {% if submission.submitted == None %}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">
                     Submit
                 </button>
@@ -81,9 +81,19 @@
             </div>
         {% endfor %}
 
+        {% if submission.file != None %}
+            <div class="form-group">
+                <a class="nav-link" href="#">View Submission File</a>
+            </div>
+        {% else %}
+            <small class="text-secondary">Player did not submit a file</small>
+        {% endif %}
+
     {% endif %}
 
-    <button class="btn btn-primary" data-toggle="modal" data-target="#manualGradeModal">Manually Grade</button>
+    {% if submission.submitted != None %}
+        <button class="btn btn-primary" data-toggle="modal" data-target="#manualGradeModal">Manually Grade</button>
+    {% endif %}
     <div class="modal fade" id="manualGradeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -94,7 +104,7 @@
                     </button>
                 </div>
                 <form action="{% url 'manually_grade_submission' %}" method="post">
-{% csrf_token %}
+                    {% csrf_token %}
                     <input hidden name="submission_id" value="{{ submission.id }}">
                     <div class="modal-body">
                         <div class="custom-control custom-checkbox">
