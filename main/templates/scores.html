@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="collapse" id="collapse{{ competed_meet.id }}">
+                        <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapse{{ competed_meet.id }}">
 
                             <table class="table">
                                 <thead>
@@ -193,41 +193,46 @@
     <div class="row">
         <div class="col">
             <h1>Assignments</h1>
-            {% for assignment in assignments %}
-                <h3 data-toggle="collapse" data-target="#collapse{{ assignment.id }}">{{ assignment }}</h3>
-                <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapse{{ assignment.id }}">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Score</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for member in assignment.members %}
-                            <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ member.first_name }}</td>
-                                <td>{{ member.last_name }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: {{ member.bar_width}}%;" aria-valuenow="{{ member.score }}" aria-valuemin="0" aria-valuemax="18">{{ member.score }}</div>
-                                    </div>
-                                    <span class="badge badge-success">Autograded</span>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-primary">Manually Grade</button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
-
+            <div id="accordion">
+                {% for assignment in assignments %}
+                    <div class="card">
+                        <div data-toggle="collapse" data-target="#collapseAssignment{{ assignment.id }}" class="card-header">
+                            <h5>{{ assignment }}</h5>
+                        </div>
+                        <div class="collapse{% if forloop.counter0 == 0 %} show{% endif %}" id="collapseAssignment{{ assignment.id }}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for member in assignment.members %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ member.first_name }}</td>
+                                        <td>{{ member.last_name }}</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: {{ member.bar_width}}%;" aria-valuenow="{{ member.score }}" aria-valuemin="0" aria-valuemax="18">{{ member.score }}</div>
+                                            </div>
+                                            <span class="badge badge-success">Autograded</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-primary">Manually Grade</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
