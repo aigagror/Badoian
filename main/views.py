@@ -319,6 +319,20 @@ def create_rounds(request):
         return redirect('rounds')
 
 @login_required
+def edit_round(request):
+    round_id = request.POST.get('round_id')
+    a_1 = request.POST.get('a_1')
+    a_2 = request.POST.get('a_2')
+    a_3 = request.POST.get('a_3')
+
+    correct_answers = '\n'.join([a_1,a_2,a_3])
+    round = Round.objects.get(id=round_id)
+    round.correct_answers = correct_answers
+    round.save()
+
+    return redirect('rounds')
+
+@login_required
 def delete_round(request):
     round_id = request.POST.get('round_id')
     round = Round.objects.get(id=round_id)

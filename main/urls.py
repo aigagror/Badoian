@@ -30,6 +30,7 @@ urlpatterns = [
     path('rounds/', views.rounds, name='rounds'),
     path('round_file/<int:round_id>/', views.round_file, name='round_file'),
     path('create_rounds/', views.create_rounds, name='create_rounds'),
+    path('edit_round/', views.edit_round, name='edit_round'),
     path('delete_round/', views.delete_round, name='delete_round'),
 ]
 

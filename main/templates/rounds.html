@@ -120,8 +120,9 @@
                 <div class="form-inline">
                     <div class="form-group mr-auto">
                         <button type="submit" class="btn btn-outline-secondary"
-                                data-toggle="modal" data-target=""
-                                data-title="Edit Round" data-league="{{ round.league }}" data-year="{{ round.year }}">
+                                data-toggle="modal" data-target="#editRound{{ round.id }}"
+                                data-title="Edit Round" data-league="{{ round.league }}" data-year="{{ round.year }}"
+                                data-round-id="{{ round.id }}">
                             Edit
                         </button>
                     </div>
@@ -136,6 +137,61 @@
                 </div>
             </li>
 
+            <div class="modal fade" id="editRound{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ round }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{% url 'edit_round' %}" method="post">
+                            {% csrf_token %}
+                            <input hidden name="round_id" value="{{ round.id }}">
+                            <div class="modal-body">
+                                <div class="form-group">
+
+                                    Old Answers
+                                    <small class="text-secondary mb-3">
+                                        {{ round.correct_answers|linenumbers|linebreaks }}
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Answer 1</div>
+                                        </div>
+                                        <input type="text" class="form-control" name="a_1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Answer 2</div>
+                                        </div>
+                                        <input type="text" class="form-control" name="a_2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Answer 3</div>
+                                        </div>
+                                        <input type="text" class="form-control" name="a_3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         {% endfor %}
         <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
