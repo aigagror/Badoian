@@ -309,13 +309,13 @@ def rounds(request):
     contest_index = request.GET.get('contest_index')
     round_index = request.GET.get('round_index')
 
-    if league != '':
+    if league != '' and league is not None:
         rounds = rounds.filter(league=league)
-    if year != '':
+    if year != '' and year is not None:
         rounds = rounds.filter(start_year=year)
-    if contest_index != '':
+    if contest_index != '' and contest_index is not None:
         rounds = rounds.filter(contest_index=contest_index)
-    if round_index != '':
+    if round_index != '' and round_index is not None:
         rounds = rounds.filter(round_index=round_index)
 
     context = {
