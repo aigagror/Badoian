@@ -12,6 +12,9 @@ for year in range(2003,2017):
         for round_index in range(6):
             file = open('mml_files/mml/{}_{}/{}.pdf'.format(year if month > 3 else year + 1, mont_str, round_index), 'rb')
 
-            new_round = Round(start_year=year, contest_index=months.index(month)+1, round_index=round_index+1, file=File(file), league='MML')
+            correct_answers = 'unknown\nunknown\nunknown'
+            new_round = Round(start_year=year, contest_index=Meet.CONTEST_INDEX[months.index(month)][0],
+                              round_index=Round.ROUND_INDEX[round_index][0], file=File(file), league='MML',
+                              correct_answers=correct_answers)
             new_round.save()
 

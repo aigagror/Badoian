@@ -304,7 +304,25 @@ def edit_score(request):
 @login_required
 def rounds(request):
     rounds = Round.objects.all()
+    league = request.GET.get('league')
+    year = request.GET.get('year')
+    contest_index = request.GET.get('contest_index')
+    round_index = request.GET.get('round_index')
+
+    if league != '':
+        rounds = rounds.filter(league=league)
+    if year != '':
+        rounds = rounds.filter(start_year=year)
+    if contest_index != '':
+        rounds = rounds.filter(contest_index=contest_index)
+    if round_index != '':
+        rounds = rounds.filter(round_index=round_index)
+
     context = {
+        'league_query': league,
+        'year_query': year,
+        'contest_index_query': contest_index,
+        'round_index_query': round_index,
         'rounds': rounds,
         'Round': Round,
     }

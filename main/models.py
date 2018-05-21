@@ -36,7 +36,7 @@ class Meet(models.Model):
         (SIX, 'Six'),
     )
 
-    YEARS = [i for i in reversed(range(1996, timezone.now().year + 1))]
+    YEARS = [str(i) for i in reversed(range(1996, timezone.now().year + 1))]
 
     league = models.CharField(choices=LEAGUES, max_length=64)
     contest_index = models.CharField(choices=CONTEST_INDEX, max_length=16)
